@@ -20,7 +20,7 @@ const [err,seterr] = useState('')
 
     async function Forecast(loc) {
         if(!loc){
-            toast.error("Please Enter a valid  place name")
+            toast.error("Please Enter a valid city")
             return
         }
         try{
@@ -34,7 +34,8 @@ if(data.error){
 setLoc(data.location)
 setCurrent(data.current)
 setForcast(data.forecast.forecastday)
-toast.success("Your search is been loaded")
+
+toast.success("Kumasi weather is been loaded")
 
 
         }
@@ -66,7 +67,7 @@ toast.success("Your search is been loaded")
             }
           }}
     type='text'
-    placeholder='Enter Location...'
+    placeholder='Enter City...'
      className='md:w-[70vh] md:h-[70px] bg-white rounded-2xl p-3
      focus:ring-blue-800 border-2 border-blue-600 '
   
