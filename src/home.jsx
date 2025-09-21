@@ -10,6 +10,7 @@ function Home() {
    const [coords, setCoords]= useState(null)
    const [loc,setLoc] =useState(null)
   const navigate = useNavigate()
+  const [loading,setLoading]=useState(true);
 
 
 
@@ -41,8 +42,10 @@ function Home() {
            try{
                 const res =  await fetch(`https://api.weatherapi.com/v1/current.json?key=330e917d9c1149cf9f8175427251809&q=${coords.lat},${coords.lon}&aqi=yes`)
                 const data = await res.json()
-                setInfo(data.current)
-                setLoc(data.location)
+                setInfo(data.current);
+                setLoc(data.location);
+                setLoading(false);
+            
             
             }
         catch(error){
@@ -82,27 +85,38 @@ function Home() {
   <div className='md:w-[40%] w-[80%] h-[350px] bg-gray-400 rounded-2xl p-4  grid grid-cols-2'>
 
     <div className='text-3xl font-bold grid grid-cols-1'>
-
-{ loc && (<>
+ 
+ 
+{ loc  && !loading && (<>
     <div>{loc.country}</div>
     <div>{loc.name}</div>
     <div className='text-[16px]'>{loc.localtime}</div>
      <div className=' flex justify-center'> <img src={info.condition.icon}  /></div>
     </>
-    )}
-
+    ) }
     </div>
-    <div>{erro &&(<p>an error occured</p>)}     
-    {info && (<div><p><span className='text-[gold] font-bold'>{info.temp_c}&deg;C </span></p>
+      { loading && (<p className='text-3xl font-bold  text-center col-span-2  duration-75'> Loading Weather...  </p>)}
+
+    <div>{erro  &&(<p>an error occured</p>)}     
+    {info && !loading && (<div><p><span className='text-[gold] font-bold'>{info.temp_c}&deg;C </span></p>
             <p>Day <span className='font-bold'> {info.is_day?"Yes":"No"}</span></p>
              <p> <span className='text-[gold] font-bold'>{info.condition.text}</span></p>
               <p> wind speed <span className='text-[gold] font-bold'>{info.wind_kph} k/h</span></p>
               <p> wind direction<span className='text-[gold] font-bold'>{info.wind_dir}</span> </p>
                 <p> Precipitation <span className='text-[gold] font-bold'>{info.precip_mm} mm</span> </p>
-                       <p> Humidity <span className='text-[gold] font-bold'>{info.humidity} % </span> </p>
-                              <p> Cloud <span className='text-[gold] font-bold'>{info.cloud}</span> </p>
-    </div>)}
-      </div>
+                 <p> Humidity <span className='text-[gold] font-bold'>{info.humidity} % </span> </p>
+                 <p> Cloud <span className='text-[gold] font-bold'>{info.cloud}</span> </p></div>
+                
+                )
+
+             
+        
+    }
+
+     </div>
+
+    
+
 
 
     </div>
