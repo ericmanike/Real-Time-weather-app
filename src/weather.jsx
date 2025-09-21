@@ -34,8 +34,7 @@ if(data.error){
 setLoc(data.location)
 setCurrent(data.current)
 setForcast(data.forecast.forecastday)
-
-toast.success("Kumasi weather is been loaded")
+toast.success(`${input} weather  Loading`)
 
 
         }
